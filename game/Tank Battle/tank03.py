@@ -44,6 +44,17 @@ class MainGame():
             #如果按的是推出，关闭窗口
             if event.type == pygame.QUIT:
                 self.gameOver()
+            #如果是键盘的按下
+            if event.type == pygame.KEYDOWN:
+                #判断按下的是上、下、左、右
+                if event.key == pygame.K_LEFT:
+                    print('左')
+                elif event.key == pygame.K_RIGHT:
+                    print('右')
+                elif event.key == pygame.K_UP:
+                    print('上')
+                elif event.key == pygame.K_DOWN:
+                    print('下')
 
 #坦克类
 class Tank():
