@@ -1,7 +1,9 @@
 '''
 新增功能：
-    1.完善敌方坦克初始化方法
-    2.创建敌方坦克并展示
+    1.优化左上角 文字的显示 将敌方坦克的数量进行修改
+    2.敌方坦克 随机移动
+        思路：新增一个变量步数，当移动时候步数进行递减
+            当步数 <=0时候修改敌方坦克的方向,并将步数复位
 '''
 # 导入pygame模块
 import pygame
@@ -20,7 +22,7 @@ SCREEN_WIDTH = 1800
 SCREEN_HEIGHT = 900
 BG_COLOR = pygame.Color(0, 0, 0)
 TEXT_COLOR = pygame.Color(255, 0, 0)
-
+ENEMY_STEP = 60
 
 class MainGame():
     window = None
@@ -54,7 +56,7 @@ class MainGame():
             # 获取事件
             self.getEvent()
             # 绘制文字
-            MainGame().window.blit(self.getTextSurface('敌方坦克剩余数量%d' % 6), (10, 10))
+            MainGame().window.blit(self.getTextSurface('敌方坦克剩余数量%d' %len(MainGame.enemyTankList)), (10, 10))
             # 调用坦克显示的方法
             MainGame.my_tank.display()
             #循环遍历敌方坦克列表，展示敌方坦克
@@ -79,6 +81,7 @@ class MainGame():
     def blitEnemyTank(self):
         for enemyTank in MainGame.enemyTankList:
             enemyTank.display()
+            enemyTank.randMove()
 
     # 结束游戏
 
@@ -229,6 +232,8 @@ class EnemyTank(Tank):
         self.speed = speed
         #移动开关键
         self.stop = True
+        #新增一个步数变量
+        self.step = ENEMY_STEP
 
     #随机生成方向
     def randDirection(self):
@@ -241,6 +246,16 @@ class EnemyTank(Tank):
             return 'L'
         elif num == 4:
             return 'R'
+    #敌方坦克随机移动的方法
+    def randMove(self):
+        if self.step <= 0:
+            #修改方向
+            self.direction = self.randDirection()
+            self.step = ENEMY_STEP
+        else:
+            self.move()
+            #让步数递减
+            self.step -= 1
 # 子弹类
 class Bullet():
     def __init__(self):
