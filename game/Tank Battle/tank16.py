@@ -215,7 +215,7 @@ class Tank(BaseItem):
         self.rect.left = left
         self.rect.top = top
         # 速度 决定了移动的快慢
-        self.speed = 6
+        self.speed = 8
         # 坦克移动的开关
         self.stop = True
         #是否活着
@@ -331,7 +331,7 @@ class Bullet(BaseItem):
             self.rect.left = tank.rect.left + tank.rect.width
             self.rect.top = tank.rect.top + tank.rect.height/2 - self.rect.width/2
         #子弹的速度
-        self.speed = 7
+        self.speed = 15
         #子弹的状态，是否碰到墙壁，如果碰到墙壁，修改此状态
         self.live = True
     # 移动
