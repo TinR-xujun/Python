@@ -136,8 +136,13 @@ class MainGame():
 
     def blitWall(self):
         for wall in MainGame.wallList:
-            # 调用墙壁的展示方法
-            wall.display()
+            #判断墙壁是否存活
+            if wall.live:
+                # 调用墙壁的展示方法
+                wall.display()
+            else:
+                #从墙壁列表中移除
+                MainGame.wallList.remove(wall)
     # 循环遍历敌方坦克列表，展示敌方坦克
 
     def blitEnemyTank(self):
@@ -444,7 +449,12 @@ class Bullet(BaseItem):
         for wall in MainGame.wallList:
             if pygame.sprite.collide_rect(self, wall):
                 # 发生碰撞,修改子弹的生存状态，让子弹消失
-                self.live = False
+                wall.live = False
+                #墙壁的生命值减少
+                wall.hp -= 1
+                if wall.hp <= 0:
+                    #修改墙壁的生存状态
+                    wall.live = False
 
     # 显示子弹的方法
 
