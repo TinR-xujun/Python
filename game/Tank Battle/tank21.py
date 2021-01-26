@@ -501,7 +501,7 @@ class Wall():
         # 是否存活
         self.live = True
         # 设置生命值
-        self.hp = 3
+        self.hp = 20
 
     # 展示墙壁的方法
 
