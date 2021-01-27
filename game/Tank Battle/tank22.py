@@ -152,6 +152,8 @@ class MainGame():
             if enemyTank.live:
                 enemyTank.display()
                 enemyTank.randMove()
+                #检测是否与墙壁碰撞
+                enemyTank.hitWall()
                 # 发射子弹
                 enemyBullet = enemyTank.shot()
                 # 敌方子弹是否是None，如果不为None则添加到敌方子弹列表
