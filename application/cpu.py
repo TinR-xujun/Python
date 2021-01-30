@@ -2,17 +2,15 @@
 import time
 import psutil
 import os
-from tkinter import *
+import pygame
 
-message = StringVar()
+SCREEN_WIDTH=700
+SCREEN_HEIGHT=500
+BG_COLOR = pygame.Color(0,0,0)
 
-root = Tk()
-root.title('系统参数')
-# 窗口大小设置和外间距设置  宽500高300 左外边距100 上外边距200
-root.geometry('500x300+100+200')
-label = Label(root, text=message, width=10,
-              height=2, bg="black", fg="white")
-label.pack()
+class MainWindow:
+    def __init__(self):
+        pass
 
 while True:
     time.sleep(1)
@@ -23,8 +21,8 @@ while True:
     # 当前内存使用率
     memory_lv = float(memory.used) / float(memory.total) * 100
     # print(memory_lv)
-    label['text'] = "当前CPU利用率："+str(cpu_lv)+"% 当前内存利用率：" +\
+    message = "当前CPU利用率："+str(cpu_lv)+"% 当前内存利用率：" +\
     str(round(memory_lv, 2))+"%"
     print(message)
-    # 调用组件的mainloop()方法，进入事件循环，监听用户操作
-root.mainloop()
+
+
