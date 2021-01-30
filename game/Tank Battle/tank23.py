@@ -157,6 +157,9 @@ class MainGame():
                 enemyTank.randMove()
                 #检测是否与墙壁碰撞
                 enemyTank.hitWall()
+                if MainGame.my_tank and MainGame.my_tank.live:
+                    #检测敌方坦克是否与我方坦克发生碰撞
+                    enemyTank.enemyTank_hit_myTank()
                 # 发射子弹
                 enemyBullet = enemyTank.shot()
                 # 敌方子弹是否是None，如果不为None则添加到敌方子弹列表
@@ -385,6 +388,10 @@ class EnemyTank(Tank):
         self.stop = True
         # 新增一个步数变量
         self.step = ENEMY_STEP
+    #敌方坦克与我方坦克的碰撞
+    def enemyTank_hit_myTank(self):
+        if pygame.sprite.collide_rect(self,MainGame.my_tank):
+            self.stay()
 
     # 随机生成方向
     def randDirection(self):
