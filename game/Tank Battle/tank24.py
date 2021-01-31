@@ -10,6 +10,8 @@ import pygame
 import os
 import time
 import random
+from playsound import playsound
+import threading
 
 
 # 1、获取当前文件的路径
@@ -108,9 +110,9 @@ class MainGame():
     def createMyTank(self):
         MainGame.my_tank = MyTank(800, 800)
         #创建Music对象
-        music = Music('')
-        #播放音乐
-        music.play()
+        # music = Music('')
+        # #播放音乐
+        # music.play()
     # 初始化敌方坦克，并将敌方坦克添加到列表中
 
     def createEnemyTank(self):
@@ -272,8 +274,9 @@ class MainGame():
                             myBullet = Bullet(MainGame.my_tank)
                             MainGame.myBulletList.append(myBullet)
                             #我方坦克发射子弹添加音效
-                            music = Music('')
-                            music.play()
+                            # playsound(basedir+'/music/shot.mp3')
+                            music = Music(basedir+'/music/shot.mp3')
+                            music.start()
             # 松开方向键，坦克停止移动，修改坦克的移动开关
             if event.type == pygame.KEYUP:
                 # 判断松开的是上、下、左、右的时候才停止坦克移动
@@ -582,17 +585,19 @@ class Explode():
 # 音效类
 
 
-class Music():
+class Music(threading.Thread):
     def __init__(self,fileName):
+        threading.Thread.__init__(self)
         self.fileName = fileName
-        #初始化音乐混合器
-        pygame.mixer.init()
-        #加载音乐
-        pygame.mixer.music.load(self.fileName)
+        # #初始化音乐混合器
+        # pygame.mixer.init()
+        # #加载音乐
+        # pygame.mixer.music.load(self.fileName)
     # 播放音乐的方法
 
-    def play(self):
-        pygame.mixer.music.play()
+    def run(self):
+        # pygame.mixer.music.play()
+        playsound(self.fileName)
 
 
 if __name__ == '__main__':
