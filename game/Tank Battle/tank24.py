@@ -110,9 +110,9 @@ class MainGame():
     def createMyTank(self):
         MainGame.my_tank = MyTank(800, 800)
         #创建Music对象
-        # music = Music('')
+        music = Music(basedir+'/music/startGame.mp3')
         # #播放音乐
-        # music.play()
+        music.start()
     # 初始化敌方坦克，并将敌方坦克添加到列表中
 
     def createEnemyTank(self):
